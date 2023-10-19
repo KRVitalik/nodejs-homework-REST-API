@@ -20,8 +20,10 @@ const signup = async (req, res) => {
     const newUser = await User.create({ ...req.body, password: hashPassword })
 
     res.status(201).json({
-        email: newUser.email,
-        subscription: newUser.subscription,
+        "user": {
+            email: newUser.email,
+            subscription: newUser.subscription,
+        }
     })
 };
 
@@ -69,6 +71,10 @@ const logout = async (req, res) => {
 
 const updateSubscription = async (req, res) => {
     const { _id: owner } = req.user
+    const {subscription} = req.body
+    if (subscription !== "starter" && subscription !== "pro" && subscription !== "business") {
+        throw HttpError(400);
+    }
     const result = await User.findOneAndUpdate({ _id: owner}, req.body, { new: true })
     if (!result) {
         throw HttpError(404, 'Not found')

@@ -21,7 +21,6 @@ const userSchema = new Schema({
 })
 
 const userSignupSchema = Joi.object({
-    name: Joi.string().required(),
     password: Joi.string().required(),
     email: Joi.string().email().required(),
     subscription: Joi.string(),
