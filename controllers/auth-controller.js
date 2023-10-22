@@ -73,7 +73,7 @@ const updateSubscription = async (req, res) => {
     const { _id: owner } = req.user
     const {subscription} = req.body
     if (subscription !== "starter" && subscription !== "pro" && subscription !== "business") {
-        throw HttpError(400);
+        throw HttpError(400, 'right subscription status:"starter", "pro", "business"');
     }
     const result = await User.findOneAndUpdate({ _id: owner}, req.body, { new: true })
     if (!result) {
