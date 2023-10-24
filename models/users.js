@@ -17,8 +17,11 @@ const userSchema = new Schema({
     enum: ["starter", "pro", "business"],
     default: "starter"
   },
-  token: String
-})
+  avatarURL: {
+    type: String,
+  },
+  token: String,
+});
 
 const userSignupSchema = Joi.object({
     password: Joi.string().required(),
